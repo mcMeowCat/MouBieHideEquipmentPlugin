@@ -21,9 +21,11 @@
 
 package moubiehideequipment.main;
 
+import moubiehideequipment.command.CommandMain;
 import moubiehideequipment.listener.PlayerListener;
 import moubiehideequipment.packet.PacketHelper;
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -86,6 +88,9 @@ public final class MouBieCat
      * 加載指令
      */
     private void loadCommands() {
+        final PluginCommand mouBieHideEquipment = this.getCommand("MouBieHideEquipment");
+        if (mouBieHideEquipment != null)
+            mouBieHideEquipment.setExecutor(new CommandMain());
     }
 
     /**

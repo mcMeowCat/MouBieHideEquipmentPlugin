@@ -38,7 +38,8 @@ public final class PluginChannelDuplexHandler
      * @throws Exception 異常
      */
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    public void channelRead(final ChannelHandlerContext ctx, final Object msg)
+            throws Exception {
         super.channelRead(ctx, msg);
     }
 
@@ -48,7 +49,8 @@ public final class PluginChannelDuplexHandler
      * @throws Exception 異常
      */
     @Override
-    public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
+    public void channelWritabilityChanged(final ChannelHandlerContext ctx)
+            throws Exception {
         super.channelWritabilityChanged(ctx);
     }
 

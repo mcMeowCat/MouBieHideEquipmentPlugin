@@ -21,13 +21,7 @@
 
 package moubiehideequipment.listener;
 
-import moubiehideequipment.main.MouBieCat;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * 代表該插件有關玩家事件的監聽器
@@ -35,25 +29,4 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class PlayerListener
         implements Listener {
-
-    /**
-     * 當玩家登入伺服器
-     * @param event 事件
-     */
-    @EventHandler
-    public void onJoin(final @NotNull PlayerJoinEvent event) {
-        final Player player = event.getPlayer();
-        MouBieCat.getInstance().getPacketHelper().injectPlayerPacket(player);
-    }
-
-    /**
-     * 當玩家離開伺服器
-     * @param event 事件
-     */
-    @EventHandler
-    public void onQuit(final @NotNull PlayerQuitEvent event) {
-        final Player player = event.getPlayer();
-        MouBieCat.getInstance().getPacketHelper().uninjectPlayerPacket(player);
-    }
-
 }
