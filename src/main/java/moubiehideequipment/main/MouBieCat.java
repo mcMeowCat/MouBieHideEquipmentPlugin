@@ -22,6 +22,7 @@
 package moubiehideequipment.main;
 
 import moubiehideequipment.listener.PlayerListener;
+import moubiehideequipment.packet.PacketHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,6 +42,9 @@ public final class MouBieCat
 
     // 代表 Message.yml 檔案
     private YamlConfiguration messageYaml = new YamlConfiguration();
+
+    // 數據包處裡幫手
+    private final PacketHelper packetHelper = new PacketHelper();
 
     /**
      * 當插件啟用時調用
@@ -107,6 +111,15 @@ public final class MouBieCat
     @NotNull
     public YamlConfiguration getMessage() {
         return this.messageYaml;
+    }
+
+    /**
+     * 獲取數據包幫手
+     * @return 數據包幫手
+     */
+    @NotNull
+    public PacketHelper getPacketHelper() {
+        return this.packetHelper;
     }
 
 }
