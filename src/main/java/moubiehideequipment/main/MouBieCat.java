@@ -21,8 +21,13 @@
 
 package moubiehideequipment.main;
 
+import moubiehideequipment.listener.PlayerListener;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 /**
  * 代表該插件本身的主類
@@ -34,11 +39,18 @@ public final class MouBieCat
     // 插件標題
     public static final String PLUGIN_TITLE = "§7[§fMouBie§6HideEquipment§7] §r";
 
+    // 代表 Message.yml 檔案
+    private YamlConfiguration messageYaml = new YamlConfiguration();
+
     /**
      * 當插件啟用時調用
      */
     @Override
     public void onEnable() {
+        this.loadFiles();
+        this.loadListener();
+        this.loadCommands();
+        System.out.println(MouBieCat.PLUGIN_TITLE + "§7插件成功§2啟用§7！");
     }
 
     /**
@@ -46,12 +58,31 @@ public final class MouBieCat
      */
     @Override
     public void onDisable() {
+        System.out.println(MouBieCat.PLUGIN_TITLE + "§7插件成功§c關閉§7！");
     }
 
     /**
      * 當插件重讀時調用
      */
     public void onReload() {
+        this.loadFiles();
+        System.out.println(MouBieCat.PLUGIN_TITLE + "§7插件成功§e重讀§7！");
+    }
+
+    /**
+     * 檔案加載函數
+     */
+    private void loadFiles() {
+        final File message = new File(this.getDataFolder() + "\\Message.yml");
+        if (!message.exists()) this.saveResource("Message.yml", false);
+        this.messageYaml = YamlConfiguration.loadConfiguration(message);
+    }
+
+    private void loadCommands() {
+    }
+
+    private void loadListener() {
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
     }
 
     /**
@@ -61,6 +92,15 @@ public final class MouBieCat
     @NotNull
     public static MouBieCat getInstance() {
         return JavaPlugin.getPlugin(MouBieCat.class);
+    }
+
+    /**
+     * 獲取 Message.yml 檔案內容
+     * @return 檔案內容
+     */
+    @NotNull
+    public YamlConfiguration getMessage() {
+        return this.messageYaml;
     }
 
 }
