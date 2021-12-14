@@ -1,6 +1,6 @@
 /**
  * LICENSE
- * MouBieQuest
+ * MouBieHideEquipmentPlugin
  * -------------
  * Copyright (C) 2021 MouBieCat(MouBie_Yuki)
  * -------------

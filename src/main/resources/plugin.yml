@@ -1,6 +1,9 @@
-name: MouBieCat
-version: '${project.version}'
-main: moubiehideequipment.main.MouBieCat
-api-version: 1.18
+name: MouBieHideEquipmentPlugin
+
+version: ${project.version}
+api-version: 1.16
+
+main: moubiesendchatcontrol.main.MouBieCat
+
 authors: [ MouBieCat ]
-description: 作為 MouBieCat 開發的功能，可以隱藏自己身上的裝備穿著。但僅限於在客戶端！
+description: "作為 MouBieCat 開發的功能，可以隱藏自己身上的裝備穿著。但僅限於在客戶端！"

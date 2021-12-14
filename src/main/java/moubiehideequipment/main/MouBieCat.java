@@ -1,6 +1,6 @@
 /**
  * LICENSE
- * MouBieQuest
+ * MouBieHideEquipmentPlugin
  * -------------
  * Copyright (C) 2021 MouBieCat(MouBie_Yuki)
  * -------------
@@ -78,9 +78,15 @@ public final class MouBieCat
         this.messageYaml = YamlConfiguration.loadConfiguration(message);
     }
 
+    /**
+     * 加載指令
+     */
     private void loadCommands() {
     }
 
+    /**
+     * 加仔事件
+     */
     private void loadListener() {
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
     }
