@@ -21,6 +21,7 @@
 
 package moubiehideequipment.listener;
 
+import moubiehideequipment.main.MouBieCat;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -42,6 +43,7 @@ public final class PlayerListener
     @EventHandler
     public void onJoin(final @NotNull PlayerJoinEvent event) {
         final Player player = event.getPlayer();
+        MouBieCat.getInstance().getPacketHelper().injectPlayerPacket(player);
     }
 
     /**
@@ -51,6 +53,7 @@ public final class PlayerListener
     @EventHandler
     public void onQuit(final @NotNull PlayerQuitEvent event) {
         final Player player = event.getPlayer();
+        MouBieCat.getInstance().getPacketHelper().uninjectPlayerPacket(player);
     }
 
 }
