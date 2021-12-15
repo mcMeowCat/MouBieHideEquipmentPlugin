@@ -22,9 +22,8 @@
 package moubiehideequipment.main;
 
 import moubiehideequipment.command.CommandMain;
-import moubiehideequipment.listener.PlayerListener;
+import moubiehideequipment.packet.EquipmentPacketThread;
 import moubiehideequipment.packet.PacketHelper;
-import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,13 +47,16 @@ public final class MouBieCat
     // 數據包處裡幫手
     private final PacketHelper packetHelper = new PacketHelper();
 
+    // 數據包發送線程經理
+    private final PacketThreadManager<EquipmentPacketThread> hideEquipmentPacketThreadManager =
+            new PacketThreadManager<>();
+
     /**
      * 當插件啟用時調用
      */
     @Override
     public void onEnable() {
         this.loadFiles();
-        this.loadListener();
         this.loadCommands();
         System.out.println(MouBieCat.PLUGIN_TITLE + "§7插件成功§2啟用§7！");
     }
@@ -94,13 +96,6 @@ public final class MouBieCat
     }
 
     /**
-     * 加仔事件
-     */
-    private void loadListener() {
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
-    }
-
-    /**
      * 獲取該插件實例本身
      * @return 插件本身
      */
@@ -125,6 +120,15 @@ public final class MouBieCat
     @NotNull
     public PacketHelper getPacketHelper() {
         return this.packetHelper;
+    }
+
+    /**
+     * 獲取數據包發送線程經理
+     * @return 數據包發送線程經理
+     */
+    @NotNull
+    public PacketThreadManager<EquipmentPacketThread> getPacketThreadManager() {
+        return this.hideEquipmentPacketThreadManager;
     }
 
 }

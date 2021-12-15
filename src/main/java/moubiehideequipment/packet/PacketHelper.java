@@ -37,9 +37,11 @@ import java.util.List;
 public final class PacketHelper {
 
     // 注入中的玩家列表
+    @NotNull
     private final List<Player> injectPlayers = new ArrayList<>();
 
     // 包處理程序
+    @NotNull
     private static final String PACKET_LISTENER = "packet_handler";
 
     /**
