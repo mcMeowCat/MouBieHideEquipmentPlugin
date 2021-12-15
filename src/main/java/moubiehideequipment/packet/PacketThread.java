@@ -48,7 +48,6 @@ public abstract class PacketThread
     public PacketThread(final @NotNull Player player) {
         this.player = player;
         this.runTaskTimer(MouBieCat.getInstance(), 0L, 10 * 20L);
-        MouBieCat.getInstance().getPacketHelper().injectPlayerPacket(this.player);
     }
 
     /**

@@ -22,8 +22,10 @@
 package moubiehideequipment.main;
 
 import moubiehideequipment.command.CommandMain;
+import moubiehideequipment.listener.PlayerListener;
 import moubiehideequipment.packet.EquipmentPacketThread;
 import moubiehideequipment.packet.PacketHelper;
+import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -58,6 +60,7 @@ public final class MouBieCat
     public void onEnable() {
         this.loadFiles();
         this.loadCommands();
+        this.loadListener();
         System.out.println(MouBieCat.PLUGIN_TITLE + "§7插件成功§2啟用§7！");
     }
 
@@ -67,14 +70,6 @@ public final class MouBieCat
     @Override
     public void onDisable() {
         System.out.println(MouBieCat.PLUGIN_TITLE + "§7插件成功§c關閉§7！");
-    }
-
-    /**
-     * 當插件重讀時調用
-     */
-    public void onReload() {
-        this.loadFiles();
-        System.out.println(MouBieCat.PLUGIN_TITLE + "§7插件成功§e重讀§7！");
     }
 
     /**
@@ -93,6 +88,10 @@ public final class MouBieCat
         final PluginCommand mouBieHideEquipment = this.getCommand("MouBieHideEquipment");
         if (mouBieHideEquipment != null)
             mouBieHideEquipment.setExecutor(new CommandMain());
+    }
+
+    private void loadListener() {
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
     }
 
     /**

@@ -43,25 +43,22 @@ public final class CommandMain
     @Override
     public boolean onCommand(final @NotNull CommandSender sender, final @NotNull Command command,
                              final @NotNull String label, final @NotNull String[] args) {
-        if (sender instanceof final Player player && args.length == 1) {
-            final YamlConfiguration message = MouBieCat.getInstance().getMessage();
+        final YamlConfiguration message = MouBieCat.getInstance().getMessage();
 
+        if (sender instanceof final Player player && args.length == 1) {
             if (args[0].equalsIgnoreCase("on")) {
                 MouBieCat.getInstance().getPacketThreadManager().add(player, new EquipmentPacketThread(player));
-
-                player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.on"));
+                player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.Hide"));
                 return true;
             }
 
             else if (args[0].equalsIgnoreCase("off")) {
                 MouBieCat.getInstance().getPacketThreadManager().remove(player);
-
-                player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.off"));
+                player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.NotHide"));
                 return true;
             }
-
-            player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.help"));
         }
+        sender.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.Help"));
 
         return false;
     }

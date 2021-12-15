@@ -22,7 +22,6 @@
 package moubiehideequipment.packet;
 
 import com.mojang.datafixers.util.Pair;
-import moubiehideequipment.main.MouBieCat;
 import net.minecraft.network.protocol.game.PacketPlayOutEntityEquipment;
 import net.minecraft.world.entity.EnumItemSlot;
 import net.minecraft.world.item.ItemStack;
@@ -46,7 +45,7 @@ public final class EquipmentPacketThread
      * 建構子
      * @param player 擁有者
      */
-    public EquipmentPacketThread(@NotNull Player player) {
+    public EquipmentPacketThread(final @NotNull Player player) {
         super(player);
     }
 
@@ -55,9 +54,9 @@ public final class EquipmentPacketThread
      */
     @Override
     public void run() {
+        System.out.println("EquipmentPacketThread run()");
+
         this.hide();
-        if (!this.player.isOnline())
-            this.cancel();
     }
 
     /**
@@ -66,8 +65,10 @@ public final class EquipmentPacketThread
      */
     @Override
     public synchronized void cancel() throws IllegalStateException {
-        MouBieCat.getInstance().getPacketHelper().uninjectPlayerPacket(this.player);
+        System.out.println("EquipmentPacketThread cancel()");
+
         this.notHide();
+        super.cancel();
     }
 
     /**
@@ -81,10 +82,10 @@ public final class EquipmentPacketThread
 
         // 發送的裝備插槽
         final List<Pair<EnumItemSlot, ItemStack>> packetEnumItems = Arrays.asList(
-                new Pair<>(EnumItemSlot.a, nmsItemStack),
-                new Pair<>(EnumItemSlot.a, nmsItemStack),
-                new Pair<>(EnumItemSlot.a, nmsItemStack),
-                new Pair<>(EnumItemSlot.a, nmsItemStack)
+                new Pair<>(EnumItemSlot.c, nmsItemStack),
+                new Pair<>(EnumItemSlot.d, nmsItemStack),
+                new Pair<>(EnumItemSlot.e, nmsItemStack),
+                new Pair<>(EnumItemSlot.f, nmsItemStack)
         );
 
         // 實例數據包
@@ -100,22 +101,18 @@ public final class EquipmentPacketThread
     private void notHide() {
         // 獲取玩家真正的穿著
         final PlayerInventory inventory = this.player.getInventory();
-        final org.bukkit.inventory.ItemStack orgHelmet = inventory.getHelmet();
-        final org.bukkit.inventory.ItemStack orgChestplate = inventory.getChestplate();
-        final org.bukkit.inventory.ItemStack orgLeggings = inventory.getLeggings();
-        final org.bukkit.inventory.ItemStack orgBoots = inventory.getBoots();
         // 轉成 NMS 型式
-        final ItemStack nmsHelmet = CraftItemStack.asNMSCopy(orgHelmet);
-        final ItemStack nmsChestplate = CraftItemStack.asNMSCopy(orgChestplate);
-        final ItemStack nmsLeggings = CraftItemStack.asNMSCopy(orgLeggings);
-        final ItemStack nmsBoots = CraftItemStack.asNMSCopy(orgBoots);
+        final ItemStack nmsHelmet = CraftItemStack.asNMSCopy(inventory.getHelmet());
+        final ItemStack nmsChestplate = CraftItemStack.asNMSCopy(inventory.getChestplate());
+        final ItemStack nmsLeggings = CraftItemStack.asNMSCopy(inventory.getLeggings());
+        final ItemStack nmsBoots = CraftItemStack.asNMSCopy(inventory.getBoots());
 
         // 發送的裝備插槽
         final List<Pair<EnumItemSlot, ItemStack>> packetEnumItems = Arrays.asList(
-                new Pair<>(EnumItemSlot.a, nmsHelmet),
-                new Pair<>(EnumItemSlot.a, nmsChestplate),
-                new Pair<>(EnumItemSlot.a, nmsLeggings),
-                new Pair<>(EnumItemSlot.a, nmsBoots)
+                new Pair<>(EnumItemSlot.f, nmsHelmet),
+                new Pair<>(EnumItemSlot.e, nmsChestplate),
+                new Pair<>(EnumItemSlot.d, nmsLeggings),
+                new Pair<>(EnumItemSlot.c, nmsBoots)
         );
 
         // 實例數據包
