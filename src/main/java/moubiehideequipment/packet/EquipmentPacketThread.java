@@ -54,8 +54,6 @@ public final class EquipmentPacketThread
      */
     @Override
     public void run() {
-        System.out.println("EquipmentPacketThread run()");
-
         this.hide();
     }
 
@@ -65,8 +63,6 @@ public final class EquipmentPacketThread
      */
     @Override
     public synchronized void cancel() throws IllegalStateException {
-        System.out.println("EquipmentPacketThread cancel()");
-
         this.notHide();
         super.cancel();
     }

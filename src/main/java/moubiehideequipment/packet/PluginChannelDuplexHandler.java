@@ -23,6 +23,7 @@ package moubiehideequipment.packet;
 
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPromise;
 
 /**
  * 代表該插件讀/寫封包需要做的事情
@@ -32,7 +33,7 @@ public final class PluginChannelDuplexHandler
         extends ChannelDuplexHandler {
 
     /**
-     * 讀封包
+     * 讀
      * @param ctx 參數
      * @param msg 參數
      * @throws Exception 異常
@@ -44,14 +45,13 @@ public final class PluginChannelDuplexHandler
     }
 
     /**
-     * 讀封包
+     * 寫
      * @param ctx 參數
-     * @throws Exception 異常
+     * @param msg 參數
+     * @param promise 參數
      */
     @Override
-    public void channelWritabilityChanged(final ChannelHandlerContext ctx)
-            throws Exception {
-        super.channelWritabilityChanged(ctx);
+    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
+        super.write(ctx, msg, promise);
     }
-
 }
