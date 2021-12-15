@@ -22,6 +22,7 @@
 package moubiehideequipment.packet;
 
 import com.mojang.datafixers.util.Pair;
+import moubiehideequipment.main.MouBieCat;
 import net.minecraft.network.protocol.game.PacketPlayOutEntityEquipment;
 import net.minecraft.world.entity.EnumItemSlot;
 import net.minecraft.world.item.ItemStack;
@@ -47,6 +48,7 @@ public final class EquipmentPacketThread
      */
     public EquipmentPacketThread(final @NotNull Player player) {
         super(player);
+        this.runTaskTimer(MouBieCat.getInstance(), 0L, 5 * 20L);
     }
 
     /**

@@ -21,7 +21,6 @@
 
 package moubiehideequipment.packet;
 
-import moubiehideequipment.main.MouBieCat;
 import net.minecraft.network.protocol.Packet;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
@@ -47,7 +46,6 @@ public abstract class PacketThread
      */
     public PacketThread(final @NotNull Player player) {
         this.player = player;
-        this.runTaskTimer(MouBieCat.getInstance(), 0L, 10 * 20L);
     }
 
     /**
