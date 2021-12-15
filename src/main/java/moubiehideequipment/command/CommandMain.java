@@ -45,21 +45,25 @@ public final class CommandMain
                              final @NotNull String label, final @NotNull String[] args) {
         final YamlConfiguration message = MouBieCat.getInstance().getMessage();
 
-        if (sender instanceof final Player player && args.length == 1) {
-            if (args[0].equalsIgnoreCase("on")) {
-                MouBieCat.getInstance().getPacketThreadManager().add(player, new EquipmentPacketThread(player));
-                player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.Hide"));
-                return true;
-            }
+        if (sender.hasPermission("MouBieHideEquipment.use")) {
+            if (sender instanceof final Player player && args.length == 1) {
+                if (args[0].equalsIgnoreCase("on")) {
+                    MouBieCat.getInstance().getPacketThreadManager().add(player, new EquipmentPacketThread(player));
+                    player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.Hide"));
+                    return true;
+                }
 
-            else if (args[0].equalsIgnoreCase("off")) {
-                MouBieCat.getInstance().getPacketThreadManager().remove(player);
-                player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.NotHide"));
-                return true;
+                else if (args[0].equalsIgnoreCase("off")) {
+                    MouBieCat.getInstance().getPacketThreadManager().remove(player);
+                    player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.NotHide"));
+                    return true;
+                }
             }
+            sender.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.Help"));
+            return true;
         }
-        sender.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.Help"));
 
+        sender.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.NotPermission"));
         return false;
     }
 

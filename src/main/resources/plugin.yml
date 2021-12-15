@@ -12,3 +12,7 @@ commands:
   MouBieHideEquipment:
     description: "為該插件的主要命令。"
     aliases: [mbhe]
+
+permissions:
+  MouBieHideEquipment.use:
+    description: "該插件的基本權限。"
