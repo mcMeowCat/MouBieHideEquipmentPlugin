@@ -4,13 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>moubiehideequipment.main</groupId>
+    <groupId>com.cat.moubiehideequipment</groupId>
     <artifactId>MouBieCat</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>MouBieCat</name>
-
+    <name>MouBieHideEquipment</name>
     <description>作為 MouBieCat 開發的功能，可以隱藏自己身上的裝備穿著。但僅限於在客戶端！</description>
 
     <!-- 基本配置 -->

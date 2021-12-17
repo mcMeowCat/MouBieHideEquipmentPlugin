@@ -19,9 +19,9 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package moubiehideequipment.main;
+package com.cat.moubiehideequipment;
 
-import moubiehideequipment.packet.PacketThread;
+import com.cat.moubiehideequipment.packet.PacketThread;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

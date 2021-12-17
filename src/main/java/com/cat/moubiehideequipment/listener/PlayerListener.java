@@ -19,9 +19,9 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package moubiehideequipment.listener;
+package com.cat.moubiehideequipment.listener;
 
-import moubiehideequipment.main.MouBieCat;
+import com.cat.moubiehideequipment.MouBieCat;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

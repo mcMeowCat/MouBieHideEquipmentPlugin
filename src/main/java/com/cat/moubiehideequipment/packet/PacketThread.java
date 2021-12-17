@@ -19,7 +19,7 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package moubiehideequipment.packet;
+package com.cat.moubiehideequipment.packet;
 
 import net.minecraft.network.protocol.Packet;
 import org.bukkit.World;

@@ -19,12 +19,12 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package moubiehideequipment.main;
+package com.cat.moubiehideequipment;
 
-import moubiehideequipment.command.CommandMain;
-import moubiehideequipment.listener.PlayerListener;
-import moubiehideequipment.packet.EquipmentPacketThread;
-import moubiehideequipment.packet.PacketHelper;
+import com.cat.moubiehideequipment.command.CommandMain;
+import com.cat.moubiehideequipment.listener.PlayerListener;
+import com.cat.moubiehideequipment.packet.EquipmentPacketThread;
+import com.cat.moubiehideequipment.packet.PacketHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.YamlConfiguration;

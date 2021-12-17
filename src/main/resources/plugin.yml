@@ -1,12 +1,12 @@
 name: MouBieHideEquipment
 
-version: ${project.version}
+version: '${project.version}'
 api-version: 1.16
 
-main: moubiehideequipment.main.MouBieCat
+main: com.cat.moubiehideequipment.MouBieCat
 
 authors: [ MouBieCat ]
-description: "作為 MouBieCat 開發的功能，可以隱藏自己身上的裝備穿著。但僅限於在客戶端！"
+description: '${project.description}'
 
 commands:
   MouBieHideEquipment:

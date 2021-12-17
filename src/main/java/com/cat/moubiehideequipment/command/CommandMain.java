@@ -19,10 +19,10 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package moubiehideequipment.command;
+package com.cat.moubiehideequipment.command;
 
-import moubiehideequipment.main.MouBieCat;
-import moubiehideequipment.packet.EquipmentPacketThread;
+import com.cat.moubiehideequipment.MouBieCat;
+import com.cat.moubiehideequipment.packet.EquipmentPacketThread;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;

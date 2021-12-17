@@ -19,10 +19,10 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package moubiehideequipment.packet;
+package com.cat.moubiehideequipment.packet;
 
 import com.mojang.datafixers.util.Pair;
-import moubiehideequipment.main.MouBieCat;
+import com.cat.moubiehideequipment.MouBieCat;
 import net.minecraft.network.protocol.game.PacketPlayOutEntityEquipment;
 import net.minecraft.world.entity.EnumItemSlot;
 import net.minecraft.world.item.ItemStack;
