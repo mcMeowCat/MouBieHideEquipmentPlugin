@@ -46,7 +46,7 @@ public final class CommandOn
      * 建構子
      */
     public CommandOn() {
-        super("on", "用於將裝備隱藏的指令", SenderType.PLAYER_SENDER, new Permission("asda.asgag"));
+        super("on", "用於將裝備隱藏的指令", SenderType.PLAYER_SENDER);
     }
 
     @Override
