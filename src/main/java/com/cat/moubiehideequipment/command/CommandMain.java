@@ -22,15 +22,15 @@
 package com.cat.moubiehideequipment.command;
 
 import com.cat.moubiehideequipment.MouBieCat;
-import com.cat.moubiehideequipment.packet.EquipmentPacketThread;
+import com.cat.moubiehideequipment.command.args.CommandOff;
+import com.cat.moubiehideequipment.command.args.CommandOn;
+import com.moubiecat.moubieapi.manager.CommandManagerAbstract;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -38,32 +38,37 @@ import java.util.List;
  * @author MouBieCat
  */
 public final class CommandMain
-        implements TabExecutor {
+        extends CommandManagerAbstract {
+
+    /**
+     * 建構子
+     */
+    public CommandMain() {
+        this.add("ON", new CommandOn());
+        this.add("OFF", new CommandOff());
+    }
 
     @Override
     public boolean onCommand(final @NotNull CommandSender sender, final @NotNull Command command,
                              final @NotNull String label, final @NotNull String[] args) {
-        final YamlConfiguration message = MouBieCat.getInstance().getMessage();
 
-        if (sender.hasPermission("MouBieHideEquipment.use")) {
-            if (sender instanceof final Player player && args.length == 1) {
-                if (args[0].equalsIgnoreCase("on")) {
-                    MouBieCat.getInstance().getPacketThreadManager().add(player, new EquipmentPacketThread(player));
-                    player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.Hide"));
-                    return true;
-                }
-
-                else if (args[0].equalsIgnoreCase("off")) {
-                    MouBieCat.getInstance().getPacketThreadManager().remove(player);
-                    player.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.NotHide"));
-                    return true;
-                }
-            }
-            sender.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.Help"));
+        // 判斷權限
+        if (!sender.hasPermission("MouBieHideEquipment.use")) {
+            sender.sendMessage(MouBieCat.PLUGIN_TITLE + MouBieCat.getInstance().getMessageFile().getHelp());
             return true;
         }
 
-        sender.sendMessage(MouBieCat.PLUGIN_TITLE + message.getString("Messages.NotPermission"));
+        // 查找要運行的命令
+        if (args.length >= 1) {
+            final com.moubiecat.api.commands.Command cmd = this.get(args[0].toUpperCase());
+
+            if (cmd != null)
+                // 運行
+                return cmd.runCommand(sender, args);
+        }
+
+        // 發送幫助訊息
+        sender.sendMessage(MouBieCat.PLUGIN_TITLE + MouBieCat.getInstance().getMessageFile().getNotPermission());
         return false;
     }
 
@@ -74,10 +79,18 @@ public final class CommandMain
         final List<String> list = new ArrayList<>();
 
         if (args.length == 1) {
-            list.add("on"); list.add("off");
+            for (final com.moubiecat.api.commands.Command cmd : this.getValues())
+                list.add(cmd.getCommandName());
+            return list;
         }
 
-        return list;
+        else if (args.length > 1) {
+            final com.moubiecat.api.commands.Command cmd = this.get(args[0].toUpperCase());
+            if (cmd != null)
+                return cmd.runTabComplete(sender, args);
+        }
+
+        return new ArrayList<>();
     }
 
 }

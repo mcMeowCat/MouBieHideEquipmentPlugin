@@ -22,76 +22,48 @@
 package com.cat.moubiehideequipment;
 
 import com.cat.moubiehideequipment.command.CommandMain;
-import com.cat.moubiehideequipment.listener.PlayerListener;
 import com.cat.moubiehideequipment.packet.EquipmentPacketThread;
-import com.cat.moubiehideequipment.packet.PacketHelper;
-import org.bukkit.Bukkit;
+import com.cat.moubiehideequipment.yaml.PluginMessage;
+import com.moubiecat.api.manager.Manager;
+import com.moubiecat.api.plugin.MouBiePlugin;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
+import java.util.UUID;
 
 /**
  * 代表該插件本身的主類
  * @author MouBieCat
  */
 public final class MouBieCat
-        extends JavaPlugin {
+        extends MouBiePlugin {
 
     // 插件標題
     public static final String PLUGIN_TITLE = "§7[§fMouBie§6HideEquipment§7] §r";
 
     // 代表 Message.yml 檔案
-    private YamlConfiguration messageYaml = new YamlConfiguration();
+    private PluginMessage message = null;
 
-    // 數據包處裡幫手
-    private final PacketHelper packetHelper = new PacketHelper();
-
-    // 數據包發送線程經理
-    private final PacketThreadManager<EquipmentPacketThread> hideEquipmentPacketThreadManager =
-            new PacketThreadManager<>();
+    // 代表數據包發送紀錄器
+    private final PacketThreadManager manager = new PacketThreadManager();
 
     /**
-     * 當插件啟用時調用
+     * 加載檔案時調用
      */
     @Override
-    public void onEnable() {
-        this.loadFiles();
-        this.loadCommands();
-        this.loadListener();
-        System.out.println(MouBieCat.PLUGIN_TITLE + "§7插件成功§2啟用§7！");
+    protected void loadFiles() {
+        this.message = new PluginMessage();
     }
 
     /**
-     * 當插件關閉時調用
+     * 加載指令時調用
      */
     @Override
-    public void onDisable() {
-        System.out.println(MouBieCat.PLUGIN_TITLE + "§7插件成功§c關閉§7！");
-    }
-
-    /**
-     * 檔案加載函數
-     */
-    private void loadFiles() {
-        final File message = new File(this.getDataFolder() + "\\Message.yml");
-        if (!message.exists()) this.saveResource("Message.yml", false);
-        this.messageYaml = YamlConfiguration.loadConfiguration(message);
-    }
-
-    /**
-     * 加載指令
-     */
-    private void loadCommands() {
+    protected void loadCommands() {
         final PluginCommand mouBieHideEquipment = this.getCommand("MouBieHideEquipment");
         if (mouBieHideEquipment != null)
             mouBieHideEquipment.setExecutor(new CommandMain());
-    }
-
-    private void loadListener() {
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
     }
 
     /**
@@ -104,30 +76,21 @@ public final class MouBieCat
     }
 
     /**
-     * 獲取 Message.yml 檔案內容
-     * @return 檔案內容
+     * 獲取插件嵌入式檔案 Message.yml
+     * @return Message.yml
      */
     @NotNull
-    public YamlConfiguration getMessage() {
-        return this.messageYaml;
+    public PluginMessage getMessageFile() {
+        return this.message;
     }
 
     /**
-     * 獲取數據包幫手
-     * @return 數據包幫手
+     * 獲取數據包發送紀錄器
+     * @return 紀錄器
      */
     @NotNull
-    public PacketHelper getPacketHelper() {
-        return this.packetHelper;
-    }
-
-    /**
-     * 獲取數據包發送線程經理
-     * @return 數據包發送線程經理
-     */
-    @NotNull
-    public PacketThreadManager<EquipmentPacketThread> getPacketThreadManager() {
-        return this.hideEquipmentPacketThreadManager;
+    public Manager<UUID, EquipmentPacketThread> getPacketManager() {
+        return this.manager;
     }
 
 }

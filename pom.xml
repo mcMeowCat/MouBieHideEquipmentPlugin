@@ -43,6 +43,12 @@
             <artifactId>spigot</artifactId>
             <version>1.18.1-R0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.cat.moubieapi</groupId>
+            <artifactId>MouBieCat</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <!-- 建構 -->

@@ -21,48 +21,46 @@
 
 package com.cat.moubiehideequipment;
 
-import com.cat.moubiehideequipment.packet.PacketThread;
-import org.bukkit.entity.Player;
+import com.cat.moubiehideequipment.packet.EquipmentPacketThread;
+import com.moubiecat.api.manager.Manager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
- * 代表一個術數包線程經理
- * @param <T> 有關 PacketThread 的繼承類
+ * 代表一個數據包線程經理
  * @author MouBieCat
  */
-public final class PacketThreadManager<T extends PacketThread> {
+public final class PacketThreadManager
+        implements Manager<UUID, EquipmentPacketThread> {
 
     // 紀錄器
-    @NotNull
-    private final Map<Player, T> packetThreads = new HashMap<>();
+    private final Map<UUID, EquipmentPacketThread> threads = new HashMap<>();
 
     /**
      * 添加紀錄(該方法不會自動為您啟動線程，請手動操作)
      * @param player 玩家
      * @param obj 線程物件
      */
-    public void add(final @NotNull Player player, final @NotNull T obj) {
-        final T beforeObj = this.get(player);
-        if (beforeObj != null)
-            beforeObj.cancel();
-
-        this.packetThreads.put(player, obj);
+    public void add(final @NotNull UUID player, final @NotNull EquipmentPacketThread obj) {
+        if (!this.hasKey(player))
+            this.threads.put(player, obj);
     }
 
     /**
      * 停止一個線程(該方法會自動檢測並且安全停止線程)
      * @param player 玩家
      */
-    public void remove(final @NotNull Player player) {
-        final T obj = this.get(player);
-        if (obj != null)
-            obj.cancel();
+    public void remove(final @NotNull UUID player) {
+        final EquipmentPacketThread thread = this.get(player);
+        if (thread != null)
+            thread.cancel();
 
-        this.packetThreads.remove(player);
+        this.threads.remove(player);
     }
 
     /**
@@ -71,17 +69,26 @@ public final class PacketThreadManager<T extends PacketThread> {
      * @return 線程物件
      */
     @Nullable
-    public T get(final @NotNull Player player) {
-        return this.packetThreads.get(player);
+    public EquipmentPacketThread get(final @NotNull UUID player) {
+        return this.threads.get(player);
     }
 
     /**
-     * 該玩家是否擁有一個線程
+     * 檢查是否包含了該紀錄
      * @param player 玩家
      * @return 是否包含
      */
-    public boolean containsPlayer(final @NotNull Player player) {
-        return this.packetThreads.containsKey(player);
+    public boolean hasKey(final @NotNull UUID player) {
+        return this.threads.containsKey(player);
+    }
+
+    /**
+     * 獲取所有資料集合表
+     * @return 集合
+     */
+    @NotNull
+    public Collection<EquipmentPacketThread> getValues() {
+        return this.threads.values();
     }
 
 }
