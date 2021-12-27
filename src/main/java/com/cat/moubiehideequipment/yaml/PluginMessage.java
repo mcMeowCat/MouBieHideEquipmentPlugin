@@ -32,10 +32,10 @@ import org.jetbrains.annotations.NotNull;
 public final class PluginMessage
         extends PluginFileLoaderAbstract {
 
-    private static final String MESSAGE_HELP_PATH = "Messages.Help";
-    private static final String MESSAGE_HIDE_PATH = "Messages.Hide";
-    private static final String MESSAGE_NOT_HIDE_PATH = "Messages.NotHide";
-    private static final String MESSAGE_NOT_PERMISSION_PATH = "Messages.NotPermission";
+    private static final String MESSAGE_HELP_PATH = "Help";
+    private static final String MESSAGE_HIDE_PATH = "Hide";
+    private static final String MESSAGE_NOT_HIDE_PATH = "NotHide";
+    private static final String MESSAGE_NOT_PERMISSION_PATH = "NotPermission";
 
     /**
      * 建構子

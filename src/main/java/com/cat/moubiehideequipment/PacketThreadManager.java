@@ -47,8 +47,11 @@ public final class PacketThreadManager
      * @param obj 線程物件
      */
     public void add(final @NotNull UUID player, final @NotNull EquipmentPacketThread obj) {
-        if (!this.hasKey(player))
-            this.threads.put(player, obj);
+        final EquipmentPacketThread thread = this.get(player);
+        if (thread != null)
+            this.remove(player);
+
+        this.threads.put(player, obj);
     }
 
     /**

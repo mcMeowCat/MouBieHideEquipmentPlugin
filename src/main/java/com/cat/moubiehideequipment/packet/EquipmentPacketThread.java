@@ -117,10 +117,12 @@ public final class EquipmentPacketThread
         if (boots != null)
             packetEnumItems.add(new Pair<>(EnumItemSlot.c, ItemStackBuilder.asNMSCopy(boots)));
 
-        // 實例數據包
-        final PacketPlayOutEntityEquipment entityEquipment =
-                new PacketPlayOutEntityEquipment(this.player.getEntityId(), packetEnumItems);
-        this.sendToPlayers(entityEquipment);
+        if (!packetEnumItems.isEmpty()) {
+            // 實例數據包
+            final PacketPlayOutEntityEquipment entityEquipment =
+                    new PacketPlayOutEntityEquipment(this.player.getEntityId(), packetEnumItems);
+            this.sendToPlayers(entityEquipment);
+        }
     }
 
 }

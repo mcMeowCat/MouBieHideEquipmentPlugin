@@ -30,7 +30,6 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -54,7 +53,7 @@ public final class CommandMain
 
         // 判斷權限
         if (!sender.hasPermission("MouBieHideEquipment.use")) {
-            sender.sendMessage(MouBieCat.PLUGIN_TITLE + MouBieCat.getInstance().getMessageFile().getHelp());
+            sender.sendMessage(MouBieCat.PLUGIN_TITLE + MouBieCat.getInstance().getMessageFile().getNotPermission());
             return true;
         }
 
@@ -68,7 +67,7 @@ public final class CommandMain
         }
 
         // 發送幫助訊息
-        sender.sendMessage(MouBieCat.PLUGIN_TITLE + MouBieCat.getInstance().getMessageFile().getNotPermission());
+        sender.sendMessage(MouBieCat.PLUGIN_TITLE + MouBieCat.getInstance().getMessageFile().getHelp());
         return false;
     }
 
