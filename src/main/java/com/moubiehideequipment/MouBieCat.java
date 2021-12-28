@@ -19,13 +19,13 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.cat.moubiehideequipment;
+package com.moubiehideequipment;
 
-import com.cat.moubiehideequipment.command.CommandMain;
-import com.cat.moubiehideequipment.packet.EquipmentPacketThread;
-import com.cat.moubiehideequipment.yaml.PluginMessage;
-import com.moubiecat.api.manager.Manager;
-import com.moubiecat.api.plugin.MouBiePlugin;
+import com.moubieapi.api.manager.Manager;
+import com.moubieapi.api.plugin.MouBiePlugin;
+import com.moubiehideequipment.command.CommandMain;
+import com.moubiehideequipment.packet.EquipmentPacketThread;
+import com.moubiehideequipment.yaml.PluginMessage;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;

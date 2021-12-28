@@ -1,14 +1,13 @@
 name: MouBieHideEquipment
 
 version: '${project.version}'
-api-version: 1.16
+api-version: ${plugin.api.version}
 
-main: com.cat.moubiehideequipment.MouBieCat
+main: com.moubiehideequipment.MouBieCat
 depend: [ MouBieAPI ]
 
 authors: [ MouBieCat ]
 description: '${project.description}'
-
 
 commands:
   MouBieHideEquipment:

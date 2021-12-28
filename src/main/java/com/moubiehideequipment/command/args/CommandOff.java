@@ -19,34 +19,32 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.cat.moubiehideequipment.command.args;
+package com.moubiehideequipment.command.args;
 
-import com.cat.moubiehideequipment.MouBieCat;
-import com.cat.moubiehideequipment.packet.EquipmentPacketThread;
-import com.moubiecat.api.commands.ICommand;
-import com.moubiecat.api.commands.SenderType;
-import com.moubiecat.moubieapi.commands.CommandAbstract;
+import com.moubieapi.api.commands.ICommand;
+import com.moubieapi.api.commands.SenderType;
+import com.moubieapi.moubieapi.commands.CommandAbstract;
+import com.moubiehideequipment.MouBieCat;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 代表隱藏裝備指令
+ * 用於將裝備顯示隱藏的指令
  * @author MouBieCat
  */
-@ICommand(name = "hide", description = "用於將裝備隱藏的指令")
-public final class CommandOn
+@ICommand(name = "off", description = "用於將裝備顯示隱藏的指令")
+public final class CommandOff
         extends CommandAbstract {
 
     /**
      * 建構子
      */
-    public CommandOn() {
-        super("on", "用於將裝備隱藏的指令", SenderType.PLAYER_SENDER);
+    public CommandOff() {
+        super("off", "", SenderType.PLAYER_SENDER);
     }
 
     @Override
@@ -56,10 +54,10 @@ public final class CommandOn
 
         final Player player = (Player) sender;
 
-        // 添加數據包發送
-        MouBieCat.getInstance().getPacketManager().add(player.getUniqueId(), new EquipmentPacketThread(player));
-        player.sendMessage(MouBieCat.PLUGIN_TITLE + MouBieCat.getInstance().getMessageFile().getHide());
-        return true;
+        // 刪除數據包發送
+        MouBieCat.getInstance().getPacketManager().remove(player.getUniqueId());
+        sender.sendMessage(MouBieCat.PLUGIN_TITLE + MouBieCat.getInstance().getMessageFile().getNotHide());
+        return false;
     }
 
     @Override

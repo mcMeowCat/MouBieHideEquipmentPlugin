@@ -19,11 +19,11 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.cat.moubiehideequipment.packet;
+package com.moubiehideequipment.packet;
 
 import com.mojang.datafixers.util.Pair;
-import com.cat.moubiehideequipment.MouBieCat;
-import com.moubiecat.moubieapi.itemstack.ItemStackBuilder;
+import com.moubieapi.moubieapi.itemstack.ItemStackBuilder;
+import com.moubiehideequipment.MouBieCat;
 import net.minecraft.network.protocol.game.PacketPlayOutEntityEquipment;
 import net.minecraft.world.entity.EnumItemSlot;
 import net.minecraft.world.item.ItemStack;
@@ -75,7 +75,7 @@ public final class EquipmentPacketThread
      */
     private void hide() {
         // 建造隱藏物品項目
-        final ItemStack nmsItemStack = ItemStackBuilder.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.AIR));
+        final ItemStack nmsItemStack = ItemStackBuilder.NMSHelper.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.AIR));
 
         // 發送的裝備插槽
         final List<Pair<EnumItemSlot, ItemStack>> packetEnumItems = new ArrayList<>();
@@ -106,16 +106,16 @@ public final class EquipmentPacketThread
         final org.bukkit.inventory.ItemStack boots = inventory.getBoots();
 
         if (helmet != null)
-            packetEnumItems.add(new Pair<>(EnumItemSlot.f, ItemStackBuilder.asNMSCopy(helmet)));
+            packetEnumItems.add(new Pair<>(EnumItemSlot.f, ItemStackBuilder.NMSHelper.asNMSCopy(helmet)));
 
         if (chestplate != null)
-            packetEnumItems.add(new Pair<>(EnumItemSlot.e, ItemStackBuilder.asNMSCopy(chestplate)));
+            packetEnumItems.add(new Pair<>(EnumItemSlot.e, ItemStackBuilder.NMSHelper.asNMSCopy(chestplate)));
 
         if (leggings != null)
-            packetEnumItems.add(new Pair<>(EnumItemSlot.d, ItemStackBuilder.asNMSCopy(leggings)));
+            packetEnumItems.add(new Pair<>(EnumItemSlot.d, ItemStackBuilder.NMSHelper.asNMSCopy(leggings)));
 
         if (boots != null)
-            packetEnumItems.add(new Pair<>(EnumItemSlot.c, ItemStackBuilder.asNMSCopy(boots)));
+            packetEnumItems.add(new Pair<>(EnumItemSlot.c, ItemStackBuilder.NMSHelper.asNMSCopy(boots)));
 
         if (!packetEnumItems.isEmpty()) {
             // 實例數據包

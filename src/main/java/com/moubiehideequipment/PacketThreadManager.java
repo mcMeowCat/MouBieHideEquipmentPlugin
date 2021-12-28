@@ -19,10 +19,10 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.cat.moubiehideequipment;
+package com.moubiehideequipment;
 
-import com.cat.moubiehideequipment.packet.EquipmentPacketThread;
-import com.moubiecat.api.manager.Manager;
+import com.moubieapi.api.manager.Manager;
+import com.moubiehideequipment.packet.EquipmentPacketThread;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

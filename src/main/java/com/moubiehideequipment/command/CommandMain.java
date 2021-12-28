@@ -19,12 +19,12 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.cat.moubiehideequipment.command;
+package com.moubiehideequipment.command;
 
-import com.cat.moubiehideequipment.MouBieCat;
-import com.cat.moubiehideequipment.command.args.CommandOff;
-import com.cat.moubiehideequipment.command.args.CommandOn;
-import com.moubiecat.moubieapi.manager.CommandManagerAbstract;
+import com.moubieapi.moubieapi.manager.CommandManagerAbstract;
+import com.moubiehideequipment.MouBieCat;
+import com.moubiehideequipment.command.args.CommandOff;
+import com.moubiehideequipment.command.args.CommandOn;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -59,7 +59,7 @@ public final class CommandMain
 
         // 查找要運行的命令
         if (args.length >= 1) {
-            final com.moubiecat.api.commands.Command cmd = this.get(args[0].toUpperCase());
+            final com.moubieapi.api.commands.Command cmd = this.get(args[0].toUpperCase());
 
             if (cmd != null)
                 // 運行
@@ -78,13 +78,13 @@ public final class CommandMain
         final List<String> list = new ArrayList<>();
 
         if (args.length == 1) {
-            for (final com.moubiecat.api.commands.Command cmd : this.getValues())
+            for (final com.moubieapi.api.commands.Command cmd : this.getValues())
                 list.add(cmd.getCommandName());
             return list;
         }
 
         else if (args.length > 1) {
-            final com.moubiecat.api.commands.Command cmd = this.get(args[0].toUpperCase());
+            final com.moubieapi.api.commands.Command cmd = this.get(args[0].toUpperCase());
             if (cmd != null)
                 return cmd.runTabComplete(sender, args);
         }
