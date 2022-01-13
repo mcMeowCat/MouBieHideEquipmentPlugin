@@ -26,7 +26,7 @@ import com.moubieapi.moubieapi.plugin.MouBiePluginBase;
 import com.moubiehideequipment.api.manager.EquipmentThreadManager;
 import com.moubiehideequipment.api.yaml.MessageFileLoader;
 import com.moubiehideequipment.listener.PlayerServerListener;
-import com.moubiehideequipment.moubiehideequipment.commands.CommandMain;
+import com.moubiehideequipment.commands.CommandMain;
 import com.moubiehideequipment.moubiehideequipment.manager.EquipmentPacketThreadManager;
 import com.moubiehideequipment.moubiehideequipment.yaml.PluginMessageFileLoader;
 import org.bukkit.Bukkit;

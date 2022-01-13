@@ -19,14 +19,14 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubiehideequipment.moubiehideequipment.commands;
+package com.moubiehideequipment.commands;
 
 import com.moubieapi.moubieapi.manager.CommandManagerAbstract;
 import com.moubiehideequipment.MouBieCat;
 import com.moubiehideequipment.api.yaml.MessageFileLoader;
-import com.moubiehideequipment.moubiehideequipment.commands.args.CommandOff;
-import com.moubiehideequipment.moubiehideequipment.commands.args.CommandOn;
-import com.moubiehideequipment.moubiehideequipment.commands.args.CommandReload;
+import com.moubiehideequipment.commands.args.CommandOff;
+import com.moubiehideequipment.commands.args.CommandOn;
+import com.moubiehideequipment.commands.args.CommandReload;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;

@@ -19,7 +19,7 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubiehideequipment.moubiehideequipment.commands.args;
+package com.moubiehideequipment.commands.args;
 
 import com.moubieapi.api.Utils;
 import com.moubieapi.api.commands.SenderType;
