@@ -19,18 +19,18 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubiehideequipment.packet;
+package com.moubiehideequipment.moubiehideequipment.thread;
 
+import com.moubiehideequipment.moubiehideequipment.utils.SendPacketHelper;
 import net.minecraft.network.protocol.Packet;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 代表樹舉包發送線程
+ * 代表數據包發送線程
  * @author MouBieCat
  */
 public abstract class PacketThread
@@ -74,7 +74,7 @@ public abstract class PacketThread
      * @param packet 數據包
      */
     protected final void sendPacket(final @NotNull Player player, final @NotNull Packet<?> packet) {
-        ((CraftPlayer)player).getHandle().b.a(packet);
+        SendPacketHelper.sendPacket(player, packet);
     }
 
 }

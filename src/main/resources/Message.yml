@@ -9,3 +9,6 @@ NotHide: "§7您§c關閉§7了隱藏裝備功能！"
 
 # 沒有 MouBieHideEquipment.use 權限時顯示
 NotPermission: "§c很抱歉！ 您沒有使用該功能的許可權！"
+
+# 重新加載配置時調用
+Reload: "§2插件配置成功重新讀取！"

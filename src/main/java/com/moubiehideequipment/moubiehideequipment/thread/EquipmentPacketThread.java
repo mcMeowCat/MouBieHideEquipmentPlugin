@@ -19,7 +19,7 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubiehideequipment.packet;
+package com.moubiehideequipment.moubiehideequipment.thread;
 
 import com.mojang.datafixers.util.Pair;
 import com.moubieapi.moubieapi.itemstack.ItemStackBuilder;
@@ -48,34 +48,27 @@ public final class EquipmentPacketThread
      */
     public EquipmentPacketThread(final @NotNull Player player) {
         super(player);
-        this.runTaskTimer(MouBieCat.getInstance(), 0L, 5 * 20L);
+        this.runTaskTimer(MouBieCat.getInstance(), 0L, 3L * 20L);
     }
 
-    /**
-     * 運行該線程做的事情
-     */
     @Override
     public void run() {
-        this.hide();
+        this.startHide();
     }
 
-    /**
-     * 取消該線程
-     * @throws IllegalStateException 異常
-     */
     @Override
     public synchronized void cancel()
             throws IllegalStateException {
-        this.notHide();
+        this.cancelHide();
         super.cancel();
     }
 
     /**
-     * 發送隱藏裝備數據包
+     * 開始隱藏裝備
      */
-    private void hide() {
+    private void startHide() {
         // 建造隱藏物品項目
-        final ItemStack nmsItemStack = ItemStackBuilder.NMSHelper.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.AIR));
+        final ItemStack nmsItemStack = ItemStackBuilder.Helper.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.AIR));
 
         // 發送的裝備插槽
         final List<Pair<EnumItemSlot, ItemStack>> packetEnumItems = new ArrayList<>();
@@ -92,37 +85,36 @@ public final class EquipmentPacketThread
     }
 
     /**
-     * 發送不再隱藏裝備數據包
+     * 取消隱藏裝備
      */
-    private void notHide() {
+    private void cancelHide() {
         // 發送的裝備插槽
         final List<Pair<EnumItemSlot, ItemStack>> packetEnumItems = new ArrayList<>();
 
         // 獲取玩家身上裝備
         final PlayerInventory inventory = player.getInventory();
-        final org.bukkit.inventory.ItemStack helmet = inventory.getHelmet();
-        final org.bukkit.inventory.ItemStack chestplate = inventory.getChestplate();
-        final org.bukkit.inventory.ItemStack leggings = inventory.getLeggings();
-        final org.bukkit.inventory.ItemStack boots = inventory.getBoots();
 
-        if (helmet != null)
-            packetEnumItems.add(new Pair<>(EnumItemSlot.f, ItemStackBuilder.NMSHelper.asNMSCopy(helmet)));
+        final org.bukkit.inventory.ItemStack helmet =
+                inventory.getHelmet() != null ? inventory.getHelmet() : new org.bukkit.inventory.ItemStack(Material.AIR);
 
-        if (chestplate != null)
-            packetEnumItems.add(new Pair<>(EnumItemSlot.e, ItemStackBuilder.NMSHelper.asNMSCopy(chestplate)));
+        final org.bukkit.inventory.ItemStack chest =
+                inventory.getChestplate() != null ? inventory.getChestplate() : new org.bukkit.inventory.ItemStack(Material.AIR);
 
-        if (leggings != null)
-            packetEnumItems.add(new Pair<>(EnumItemSlot.d, ItemStackBuilder.NMSHelper.asNMSCopy(leggings)));
+        final org.bukkit.inventory.ItemStack leggings =
+                inventory.getLeggings() != null ? inventory.getLeggings() : new org.bukkit.inventory.ItemStack(Material.AIR);
 
-        if (boots != null)
-            packetEnumItems.add(new Pair<>(EnumItemSlot.c, ItemStackBuilder.NMSHelper.asNMSCopy(boots)));
+        final org.bukkit.inventory.ItemStack boots =
+                inventory.getBoots() != null ? inventory.getBoots() : new org.bukkit.inventory.ItemStack(Material.AIR);
 
-        if (!packetEnumItems.isEmpty()) {
-            // 實例數據包
-            final PacketPlayOutEntityEquipment entityEquipment =
-                    new PacketPlayOutEntityEquipment(this.player.getEntityId(), packetEnumItems);
-            this.sendToPlayers(entityEquipment);
-        }
+        packetEnumItems.add(new Pair<>(EnumItemSlot.f, ItemStackBuilder.Helper.asNMSCopy(helmet)));
+        packetEnumItems.add(new Pair<>(EnumItemSlot.e, ItemStackBuilder.Helper.asNMSCopy(chest)));
+        packetEnumItems.add(new Pair<>(EnumItemSlot.d, ItemStackBuilder.Helper.asNMSCopy(leggings)));
+        packetEnumItems.add(new Pair<>(EnumItemSlot.c, ItemStackBuilder.Helper.asNMSCopy(boots)));
+
+        // 實例數據包
+        final PacketPlayOutEntityEquipment entityEquipment =
+                new PacketPlayOutEntityEquipment(this.player.getEntityId(), packetEnumItems);
+        this.sendToPlayers(entityEquipment);
     }
 
 }

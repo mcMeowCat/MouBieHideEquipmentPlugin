@@ -17,3 +17,6 @@ commands:
 permissions:
   MouBieHideEquipment.use:
     description: "該插件的基本權限。"
+
+  MouBieHideEquipment.reload:
+    description: "該插件重讀的權限。"

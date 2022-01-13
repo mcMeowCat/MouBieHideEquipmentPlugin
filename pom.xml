@@ -6,7 +6,7 @@
 
     <groupId>com.cat.moubiehideequipment</groupId>
     <artifactId>MouBieCat</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>MouBieHideEquipment</name>
@@ -58,6 +58,14 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>${spigot.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Spigot(net.minecraft.server) -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

@@ -19,50 +19,48 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubiehideequipment.command.args;
+package com.moubiehideequipment.moubiehideequipment.commands.args;
 
-import com.moubieapi.api.commands.ICommand;
+import com.moubieapi.api.Utils;
 import com.moubieapi.api.commands.SenderType;
 import com.moubieapi.moubieapi.commands.CommandAbstract;
 import com.moubiehideequipment.MouBieCat;
+import com.moubiehideequipment.api.yaml.MessageFileLoader;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 用於將裝備顯示隱藏的指令
+ * 代表插件的重讀指令
  * @author MouBieCat
  */
-@ICommand(name = "off", description = "用於將裝備顯示隱藏的指令")
-public final class CommandOff
+public final class CommandReload
         extends CommandAbstract {
 
     /**
      * 建構子
      */
-    public CommandOff() {
-        super("off", "", SenderType.PLAYER_SENDER);
+    public CommandReload() {
+        super("reload", "用於將插件的相關配置重新讀取", SenderType.ANY_SENDER, new Permission("MouBieHideEquipment.reload"));
     }
 
     @Override
     public boolean runCommand(final @NotNull CommandSender sender, final @NotNull String[] args) {
-        if (!this.checkSenderType(sender) || !this.hasPermission(sender))
+        if (!this.hasPermission(sender) || !this.checkSenderType(sender))
             return false;
 
-        final Player player = (Player) sender;
-
-        // 刪除數據包發送
-        MouBieCat.getInstance().getPacketManager().remove(player.getUniqueId());
-        sender.sendMessage(MouBieCat.PLUGIN_TITLE + MouBieCat.getInstance().getMessageFile().getNotHide());
-        return false;
+        final MessageFileLoader messages = MouBieCat.getInstance().getMessageFile();
+        Utils.reloadMouBiePlugin(MouBieCat.getInstance().getName());
+        sender.sendMessage(MouBieCat.PLUGIN_TITLE + messages.getReloadMessage());
+        return true;
     }
 
     @Override
     @NotNull
-    public List<String> runTabComplete(final @NotNull CommandSender sender, final @NotNull String[] args) {
+    public List<String> runTabComplete(@NotNull CommandSender commandSender, @NotNull String[] strings) {
         return new ArrayList<>();
     }
 

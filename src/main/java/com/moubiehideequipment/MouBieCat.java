@@ -21,76 +21,84 @@
 
 package com.moubiehideequipment;
 
-import com.moubieapi.api.manager.Manager;
-import com.moubieapi.api.plugin.MouBiePlugin;
-import com.moubiehideequipment.command.CommandMain;
-import com.moubiehideequipment.packet.EquipmentPacketThread;
-import com.moubiehideequipment.yaml.PluginMessage;
+import com.moubieapi.api.plugin.Register;
+import com.moubieapi.moubieapi.plugin.MouBiePluginBase;
+import com.moubiehideequipment.api.manager.EquipmentThreadManager;
+import com.moubiehideequipment.api.yaml.MessageFileLoader;
+import com.moubiehideequipment.listener.PlayerServerListener;
+import com.moubiehideequipment.moubiehideequipment.commands.CommandMain;
+import com.moubiehideequipment.moubiehideequipment.manager.EquipmentPacketThreadManager;
+import com.moubiehideequipment.moubiehideequipment.yaml.PluginMessageFileLoader;
+import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.UUID;
 
 /**
  * 代表該插件本身的主類
  * @author MouBieCat
  */
 public final class MouBieCat
-        extends MouBiePlugin {
+        extends MouBiePluginBase {
 
     // 插件標題
     public static final String PLUGIN_TITLE = "§7[§fMouBie§6HideEquipment§7] §r";
 
-    // 代表 Message.yml 檔案
-    private PluginMessage message = null;
+    // 玩家數據包線程管理器
+    private final EquipmentThreadManager threadManager = new EquipmentPacketThreadManager();
 
-    // 代表數據包發送紀錄器
-    private final PacketThreadManager manager = new PacketThreadManager();
+    // 插件嵌入式檔案(Message.yml)
+    private MessageFileLoader messageLoader = null;
 
-    /**
-     * 加載檔案時調用
-     */
-    @Override
-    protected void loadFiles() {
-        this.message = new PluginMessage();
+    /** This is plugin enable **/
+    @Register(name = "註冊插件檔案", type = Register.ActionType.ACTION_ENABLE, priority = Register.ActionPriority.HIGHEST)
+    public void registerFiles() {
+        this.messageLoader = new PluginMessageFileLoader();
+    }
+
+    @Register(name = "註冊插件指令", type = Register.ActionType.ACTION_ENABLE, priority = Register.ActionPriority.NORMAL)
+    public void registerCommands() {
+        final PluginCommand command = this.getCommand("MouBieHideEquipment");
+        if (command != null)
+            command.setExecutor(new CommandMain());
+    }
+
+    @Register(name = "註冊插件事件", type = Register.ActionType.ACTION_ENABLE, priority = Register.ActionPriority.NORMAL)
+    public void registerListener() {
+        Bukkit.getPluginManager().registerEvents(new PlayerServerListener(), this);
+    }
+
+    /** This is plugin reload **/
+    @Register(name = "重載插件檔案", type = Register.ActionType.ACTION_RELOAD, priority =  Register.ActionPriority.HIGHEST)
+    public void reloadFiles() {
+        this.messageLoader.reloadFile();
     }
 
     /**
-     * 加載指令時調用
+     * 獲取玩家數據包線程管理器
+     * @return 線程管理器
      */
-    @Override
-    protected void loadCommands() {
-        final PluginCommand mouBieHideEquipment = this.getCommand("MouBieHideEquipment");
-        if (mouBieHideEquipment != null)
-            mouBieHideEquipment.setExecutor(new CommandMain());
+    @NotNull
+    public EquipmentThreadManager getThreadManager() {
+        return threadManager;
     }
 
     /**
-     * 獲取該插件實例本身
+     * 獲取插件嵌入式檔案(Message.yml)
+     * @return Message.yml
+     */
+    @NotNull
+    public MessageFileLoader getMessageFile() {
+        return this.messageLoader;
+    }
+
+    /**
+     * 獲取當前插件實例
      * @return 插件本身
      */
     @NotNull
     public static MouBieCat getInstance() {
         return JavaPlugin.getPlugin(MouBieCat.class);
-    }
-
-    /**
-     * 獲取插件嵌入式檔案 Message.yml
-     * @return Message.yml
-     */
-    @NotNull
-    public PluginMessage getMessageFile() {
-        return this.message;
-    }
-
-    /**
-     * 獲取數據包發送紀錄器
-     * @return 紀錄器
-     */
-    @NotNull
-    public Manager<UUID, EquipmentPacketThread> getPacketManager() {
-        return this.manager;
     }
 
 }
