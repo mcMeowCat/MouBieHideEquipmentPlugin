@@ -21,7 +21,7 @@
 
 package com.moubiehideequipment.moubiehideequipment.utils;
 
-import com.moubieapi.moubieapi.utils.ReflectHelper;
+import com.moubieapi.moubieapi.reflect.CraftBukkitReflect;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.EntityPlayer;
 import org.bukkit.entity.Player;
@@ -33,8 +33,7 @@ import java.lang.reflect.Method;
  * 代表發送數據包有關的幫手類
  * @author MouBieCat
  */
-public final class SendPacketHelper
-        extends ReflectHelper {
+public final class SendPacketHelper {
 
     /**
      * 發送一個數據包給玩家
@@ -42,8 +41,8 @@ public final class SendPacketHelper
      * @param packet 數據包
      */
     public static void sendPacket(final @NotNull Player player, final @NotNull Packet<?> packet) {
-        final Method getHandle = ReflectHelper.getMethod(player.getClass(), "getHandle");
-        final EntityPlayer entityPlayer = (EntityPlayer) ReflectHelper.invoke(getHandle, player);
+        final Method getHandle = CraftBukkitReflect.getMethod(player.getClass(), "getHandle");
+        final EntityPlayer entityPlayer = (EntityPlayer) CraftBukkitReflect.invoke(getHandle, player);
         entityPlayer.b.a(packet);
     }
 
